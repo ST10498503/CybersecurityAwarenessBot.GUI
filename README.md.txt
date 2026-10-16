@@ -54,3 +54,24 @@ ST10498503
 Project Status
 
 Part 2 — GUI and dynamic cybersecurity responses.
+
+## Build and Automation
+
+This project includes a GitHub Actions workflow that automatically builds the WPF application when changes are pushed to the main branch or a pull request is opened.
+
+## Multimedia Assets
+
+- `Audio/greeting.wav` — audio greeting.
+- `Assets/ascii-logo.txt` — ASCII logo displayed in the application.
+
+## Technologies Used
+
+- C#
+- .NET 8
+- Windows Presentation Foundation (WPF)
+- XAML
+- GitHub Actions
+
+## Testing
+
+The application should be tested for keyword recognition, follow-up questions, session memory, sentiment responses, blank input, unknown questions, and multimedia loading.
