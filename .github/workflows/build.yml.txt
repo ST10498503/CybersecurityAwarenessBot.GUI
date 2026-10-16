@@ -1,0 +1,37 @@
+name: Build Cybersecurity Awareness Bot
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+
+      - name: Locate WPF project
+        shell: pwsh
+        run: |
+          $project = Get-ChildItem -Recurse -Filter *.csproj |
+            Where-Object { $_.FullName -match 'CybersecurityAwarenessBot\.GUI' } |
+            Select-Object -First 1
+
+          if (-not $project) {
+            throw "WPF GUI project file was not found."
+          }
+
+          "PROJECT_PATH=$($project.FullName)" >> $env:GITHUB_ENV
+
+      - name: Build WPF project
+        run: dotnet build "$env:PROJECT_PATH" --configuration Release
